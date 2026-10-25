@@ -20,17 +20,19 @@ model = "openai/gpt-oss-120b"
 app = FastAPI()
 
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+CORSMiddleware,
+allow_origins=[
+"http://localhost:5173",
+"http://127.0.0.1:5173",
+"http://localhost:5174",
+"http://127.0.0.1:5174",
+"https://hire-mee-porfolio.vercel.app",
+],
+allow_credentials=True,
+allow_methods=["*"],
+allow_headers=["*"],
 )
+
 
 #parse resume
 class Experience(BaseModel):
