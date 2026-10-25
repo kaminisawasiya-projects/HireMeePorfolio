@@ -44,6 +44,7 @@ class Resume(BaseModel):
     name: str | None = None
     email: str | None = None
     phone: str | None = None
+    CGPA: float | None = None
 
     total_experience_years: float | None = None
 
@@ -66,6 +67,8 @@ class Resume(BaseModel):
     name: str | None = None
     email: str | None = None
     phone: str | None = None
+    CGPA: float | None = None
+
 
     total_experience_years: float | None = None
 
@@ -150,13 +153,19 @@ def parse_resume(resume_text):
     {resume_schema}
 
     
-    Important rules:
+      Important rules:
 
     1. Do not invent information.
     2. If a value is not available, return null.
     3. If a list has no information, return an empty list.
     4. Include internships inside experiences.
     5. Extract skills mentioned across the entire resume.
+    6. Carefully search the entire resume for CGPA, GPA, or Cumulative Grade Point Average.
+    7. If CGPA is mentioned, extract its numerical value and store it in the CGPA field.
+    8. CGPA may appear in the Education section or alongside degree details.
+    9. Do not confuse CGPA with percentage, marks, or graduation year.
+    10. If CGPA is not explicitly available, return null for CGPA.
+
     """
     user_prompt = f"""
     Parse the following resume:
@@ -224,7 +233,7 @@ def chat(request: ChatRequest):
         "answer": answer
     }
 
-
+uploaded_resume_text = ""
 @app.post("/upload-resume")
 async def upload_resume(file: UploadFile = File(...)):
     if not file.filename or not file.filename.lower().endswith(".pdf"):

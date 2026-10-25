@@ -48,7 +48,7 @@ async function uploadResume(selectedFile) {
       setUploadResult(null);
 
     const response = await fetch(
-      "http://127.0.0.1:8000/upload-resume",
+       "https://hiremeeporfolio.onrender.com/upload-resume", 
       {
         method: "POST",
         body: formData,
@@ -107,7 +107,7 @@ console.log("Extracted resume text:", data.resume_text);
   setLoading(true);
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/chat", {
+      const response = await fetch("https://hiremeeporfolio.onrender.com/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question: value }),
@@ -150,7 +150,7 @@ async function matchJob() {
   setJobMatch(null);
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/match-job", {
+      const response = await fetch("https://hiremeeporfolio.onrender.com/match-job", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
